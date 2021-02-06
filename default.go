@@ -1,6 +1,10 @@
 package logger
 
-import "log"
+import (
+	"log"
+
+	"github.com/graphmetrics/logger-go/options"
+)
 
 type defaultLogger struct {
 }
@@ -15,7 +19,6 @@ func (*defaultLogger) Debug(msg string, metadata map[string]interface{}) {
 
 func (*defaultLogger) Info(msg string, metadata map[string]interface{}) {
 	log.Printf("[INFO] %s %#v", msg, metadata)
-
 }
 
 func (*defaultLogger) Warn(msg string, metadata map[string]interface{}) {
@@ -24,4 +27,8 @@ func (*defaultLogger) Warn(msg string, metadata map[string]interface{}) {
 
 func (*defaultLogger) Error(msg string, metadata map[string]interface{}) {
 	log.Printf("[ERROR] %s %#v", msg, metadata)
+}
+
+func (*defaultLogger) WithOptions(...options.LoggerOption) Logger {
+	return &defaultLogger{}
 }
