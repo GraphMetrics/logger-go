@@ -7,14 +7,17 @@ import (
 )
 
 type defaultLogger struct {
+	debug bool
 }
 
-func NewDefault() Logger {
-	return &defaultLogger{}
+func NewDefault(debug bool) Logger {
+	return &defaultLogger{debug: debug}
 }
 
-func (*defaultLogger) Debug(msg string, metadata map[string]interface{}) {
-	log.Printf("[DEBUG] %s %#v", msg, metadata)
+func (l *defaultLogger) Debug(msg string, metadata map[string]interface{}) {
+	if l.debug {
+		log.Printf("[DEBUG] %s %#v", msg, metadata)
+	}
 }
 
 func (*defaultLogger) Info(msg string, metadata map[string]interface{}) {
